@@ -10,12 +10,12 @@ const nextStatusMap = {
     done: "todo",
 }
 
-let nextIdx = 0;
+let nextId = 0;
 
 const makeTask = (body) => {
-    nextIdx += 1;
+    nextId += 1;
     return {
-        idx: nextIdx,
+        id: nextId,
         body: body,
         status: "todo",
     }

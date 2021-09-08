@@ -10,8 +10,8 @@ const createTaskList = () => {
             tasks.push(makeTask(body));
             return tasks;
         }),
-        toggleStatus: idx => update(tasks => {
-            const targetIndex = tasks.findIndex(t => t.idx == idx);
+        toggleStatus: id => update(tasks => {
+            const targetIndex = tasks.findIndex(t => t.id == id);
             let targetTask = tasks.splice(targetIndex, 1)[0];
             targetTask = toNextStatus(targetTask);
             tasks.splice(targetIndex, 0, targetTask);

@@ -4,13 +4,13 @@
     export let task;
 
     const dispatch = createEventDispatcher();
-    const onClick = (idx) => {
+    const onClick = (id) => {
         dispatch('toggle', {
-            idx: idx,
+            id: id,
         });
     }
 </script>
 
-<li on:click={onClick(task.idx)}>
+<li on:click={onClick(task.id)}>
     {toIcon(task)} : {task.body}
 </li>

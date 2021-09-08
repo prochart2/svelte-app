@@ -24,7 +24,7 @@
     }
 
     const onTaskStatuToggled = (event) => {
-        taskList.toggleStatus(event.detail.idx);
+        taskList.toggleStatus(event.detail.id);
     }
 </script>
 

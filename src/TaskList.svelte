@@ -3,6 +3,6 @@
     export let tasks;
 </script>
 
-{#each tasks as task (task.idx)}
+{#each tasks as task (task.id)}
     <Task task={task} on:toggle />
 {/each}
