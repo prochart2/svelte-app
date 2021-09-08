@@ -3,7 +3,7 @@ import { text } from "svelte/internal";
 
     let date = "2020-09-08";
 
-    let todoList = [{"idx": 0, "body":"ahiahi"}];
+    let todoList = [];
     let nextIndex = 1;
     let newTodo = "";
 
@@ -11,10 +11,19 @@ import { text } from "svelte/internal";
         if (event.keyCode != 13 || ! newTodo) return;
         todoList = [...todoList, {
             "idx": nextIndex,
+            "status": "todo",
             "body": newTodo,
         }];
         nextIndex += 1;
         newTodo = "";
+    }
+
+    const statusToIcon = (status) => {
+        return {
+            "todo": "⬜",
+            "wip": "⏩",
+            "done": "✅"
+        }[status]
     }
 </script>
 
@@ -30,7 +39,7 @@ import { text } from "svelte/internal";
            on:keyup={addTodo}
            bind:value={newTodo}>
     {#each todoList as todo (todo.idx)}
-        <li>{todo.idx} : {todo.body}</li>
+        <li>{todo.idx}({statusToIcon(todo.status)}) : {todo.body}</li>
     {/each}
 
     <h2>やったこと</h2>
