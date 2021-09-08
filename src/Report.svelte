@@ -27,6 +27,16 @@
         addTask(newTask);
     }
 
+    const onTaskStatuToggled = (event) => {
+        const idx = event.detail.idx;
+        const status = event.detail.status;
+        let oldIdx = taskList.findIndex(t => t.idx == idx);
+        let oldTask = taskList.splice(oldIdx, 1)[0];
+        let newTask = {...oldTask, status: status};
+        taskList.splice(oldIdx, 0, newTask);
+        taskList = [...taskList];
+        console.dir(taskList);
+    }
 </script>
 
 <p>
@@ -40,7 +50,7 @@
            placeholder="やること追加"
            on:keyup={onNewTaskEntered}
            bind:value={newTask}>
-    <TaskList taskList={taskList} />
+    <TaskList taskList={taskList} on:toggle={onTaskStatuToggled} />
     <h2>やったこと</h2>
     <h2>できなかったこと</h2>
     <h2>今日の学び</h2>

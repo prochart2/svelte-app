@@ -5,5 +5,5 @@
 </script>
 
 {#each taskList as task (task.idx)}
-    <Task task={task} />
+    <Task task={task} on:toggle />
 {/each}
