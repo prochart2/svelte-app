@@ -7,8 +7,7 @@ const createTaskList = () => {
     return {
         subscribe,
         addTask: body => update(tasks => {
-            tasks = [...tasks, makeTask(body)];
-            console.dir(`tasks: ${JSON.stringify(tasks)}`);
+            tasks.push(makeTask(body));
             return tasks;
         }),
         toggleStatus: idx => update(tasks => {
@@ -16,7 +15,6 @@ const createTaskList = () => {
             let targetTask = tasks.splice(targetIndex, 1)[0];
             targetTask = toNextStatus(targetTask);
             tasks.splice(targetIndex, 0, targetTask);
-            tasks = [...tasks];
             return tasks;
         }),
     };

@@ -12,5 +12,5 @@
 </script>
 
 <li on:click={onClick(task.idx)}>
-    {task.idx}({toIcon(task)}) : {task.body}
+    {toIcon(task)} : {task.body}
 </li>
