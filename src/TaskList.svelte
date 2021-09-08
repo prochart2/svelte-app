@@ -1,9 +1,8 @@
 <script>
     import Task from './Task.svelte';
-
-    export let taskList;
+    export let tasks;
 </script>
 
-{#each taskList as task (task.idx)}
+{#each tasks as task (task.idx)}
     <Task task={task} on:toggle />
 {/each}
