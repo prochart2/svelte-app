@@ -1,30 +1,32 @@
 <script>
-import { text } from "svelte/internal";
+    import { text } from "svelte/internal";
+    import TaskList from './TaskList.svelte';
 
     let date = "2020-09-08";
 
-    let todoList = [];
-    let nextIndex = 1;
-    let newTodo = "";
+    let taskList = [];
+    let nextIndex = 0;
+    let newTask = "";
 
-    const addTodo = (event) => {
-        if (event.keyCode != 13 || ! newTodo) return;
-        todoList = [...todoList, {
+    const makeTask = (body) => {
+        nextIndex += 1;
+        return {
             "idx": nextIndex,
             "status": "todo",
-            "body": newTodo,
-        }];
-        nextIndex += 1;
-        newTodo = "";
+            "body": newTask,
+        };
     }
 
-    const statusToIcon = (status) => {
-        return {
-            "todo": "⬜",
-            "wip": "⏩",
-            "done": "✅"
-        }[status]
+    const addTask = (body) => {
+        taskList = [...taskList, makeTask(body)];
+        newTask = "";
     }
+
+    const onNewTaskEntered = (event) => {
+        if (event.keyCode != 13 || ! newTask) return;
+        addTask(newTask);
+    }
+
 </script>
 
 <p>
@@ -36,12 +38,9 @@ import { text } from "svelte/internal";
     <h2>やること</h2>
     <input type="text"
            placeholder="やること追加"
-           on:keyup={addTodo}
-           bind:value={newTodo}>
-    {#each todoList as todo (todo.idx)}
-        <li>{todo.idx}({statusToIcon(todo.status)}) : {todo.body}</li>
-    {/each}
-
+           on:keyup={onNewTaskEntered}
+           bind:value={newTask}>
+    <TaskList taskList={taskList} />
     <h2>やったこと</h2>
     <h2>できなかったこと</h2>
     <h2>今日の学び</h2>
