@@ -18,6 +18,7 @@ const makeTask = (body) => {
         id: nextId,
         body: body,
         status: "todo",
+        children: [],
     }
 }
 

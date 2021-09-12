@@ -3,6 +3,14 @@
     export let tasks;
 </script>
 
-{#each tasks as task (task.id)}
-    <Task task={task} on:toggle />
-{/each}
+<ul class="tasklist">
+    {#each tasks as task (task.id)}
+        <Task task={task} on:toggle />
+    {/each}
+</ul>
+
+<style>
+    .tasklist {
+        list-style: none;
+    }
+</style>
