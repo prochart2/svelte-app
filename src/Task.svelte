@@ -1,6 +1,6 @@
 <script>
     import {createEventDispatcher} from 'svelte';
-    import { toIcon } from './task';
+    import { toIcon, makeTask } from './task';
     import TaskList from './TaskList.svelte';
     export let task;
 
@@ -10,9 +10,23 @@
             id: id,
         });
     }
+
+    let newChild = "";
+    const onNewChildEntered = (event) => {
+        if (event.keyCode != 13 || ! newChild) return;
+        task.children = [
+            ...task.children,
+            makeTask(newChild)
+        ];
+        newChild = "";
+        task = task;
+    }
 </script>
 
 <li on:click={onClick(task.id)}>
     {toIcon(task)} : {task.body}
+    <input type="text"
+           bind:value={newChild}
+           on:keyup={onNewChildEntered}>
     <TaskList tasks={task.children} />
 </li>
