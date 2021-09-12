@@ -23,8 +23,9 @@
     }
 </script>
 
-<li on:click={onClick(task.id)}>
-    {toIcon(task)} : {task.body}
+<li>
+    <span on:click={onClick(task.id)}>{toIcon(task)}</span>
+    {task.body}
     <input type="text"
            bind:value={newChild}
            on:keyup={onNewChildEntered}>
