@@ -10,6 +10,7 @@
             id: id,
         });
     }
+    let clicked = false;
 
     let newChild = "";
     const onNewChildEntered = (event) => {
@@ -25,9 +26,11 @@
 
 <li>
     <span on:click={onClick(task.id)}>{toIcon(task)}</span>
-    {task.body}
-    <input type="text"
-           bind:value={newChild}
-           on:keyup={onNewChildEntered}>
+    <span on:click="{() => clicked = !clicked}">{task.body}</span>
+    {#if clicked}
+        <input type="text"
+            bind:value={newChild}
+            on:keyup={onNewChildEntered}>
+    {/if}
     <TaskList tasks={task.children} />
 </li>
