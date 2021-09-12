@@ -3,7 +3,15 @@
     import TaskList from './TaskList.svelte';
     import { taskList } from './taskList';
 
-    let date = "2020-09-08";
+    // Date
+    const now = new Date();
+    const fmt = new Intl.DateTimeFormat('ja', {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+    });
+
+    let date_str = fmt.format(now);
 
     // Aim
     let aims = ["ahi"];
@@ -45,9 +53,9 @@
     let impressions = "";
 </script>
 
-<p>
-    ahiahi
-</p>
+<h2>
+    {date_str}
+</h2>
 
 <div>
     <h2>目標</h2>
