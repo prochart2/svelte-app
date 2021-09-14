@@ -1,6 +1,9 @@
 <script>
     import Task from './Task.svelte';
+    import {createEventDispatcher} from 'svelte';
     export let tasks;
+
+    const dispatch = createEventDispatcher();
 
     let lastLeftIdx = null;
 
@@ -14,8 +17,10 @@
         console.log("Drag end: " + idx);
         event.detail.target.style.background = "";
         if (lastLeftIdx != null && idx != lastLeftIdx) {
-            console.log(`Swap ${idx} <-> ${lastLeftIdx}`);
-            [tasks[idx], tasks[lastLeftIdx]] = [tasks[lastLeftIdx], tasks[idx]]
+            dispatch('swap', {
+                idx1: idx,
+                idx2: lastLeftIdx,
+            });
         }
     }
 

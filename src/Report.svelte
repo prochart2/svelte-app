@@ -45,6 +45,13 @@
         taskList.toggleStatus(event.detail.id);
     }
 
+    const onTasksSwapped = event => {
+        const [idx1, idx2] = [
+            event.detail.idx1,
+            event.detail.idx2,
+        ];
+        taskList.swap(idx1, idx2);
+    }
 
     // Learned
     let learned = "";
@@ -72,7 +79,10 @@
            placeholder="やること追加"
            on:keyup={onNewTaskEntered}
            bind:value={newTask}>
-    <TaskList tasks={tasks} on:toggle={onTaskStatuToggled} />
+    <TaskList
+        tasks={tasks}
+        on:toggle={onTaskStatuToggled}
+        on:swap={onTasksSwapped}/>
     <h2>やったこと</h2>
     <TaskList tasks={dones} on:toggle={onTaskStatuToggled} />
     <h2>できなかったこと</h2>

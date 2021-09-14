@@ -17,6 +17,11 @@ const createTaskList = () => {
             tasks.splice(targetIndex, 0, targetTask);
             return tasks;
         }),
+        swap: (idx1, idx2) => update(tasks => {
+            [tasks[idx1], tasks[idx2]] = [tasks[idx2], tasks[idx1]];
+            console.log(`Swap ${idx1} <-> ${idx2}`);
+            return tasks;
+        }),
     };
 }
 
