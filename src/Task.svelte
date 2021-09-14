@@ -30,7 +30,8 @@
     {#if clicked}
         <input type="text"
             bind:value={newChild}
-            on:keyup={onNewChildEntered}>
+            on:keyup={onNewChildEntered}
+            on:blur={() => clicked = false}>
     {/if}
     <TaskList tasks={task.children} />
 </li>
