@@ -14,7 +14,7 @@
     let date_str = fmt.format(now);
 
     // Aim
-    let aims = ["ahi"];
+    let aims = [];
     let newAim = "";
 
     const onNewAimEntered = (event) => {
