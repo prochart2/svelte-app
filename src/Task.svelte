@@ -22,9 +22,16 @@
         newChild = "";
         task = task;
     }
+
+    const onDragStart = (event) => {
+        dispatch('dragstart', {
+            target: event.target,
+            id: task.id,
+        })
+    }
 </script>
 
-<li>
+<li draggable="true" on:dragstart={onDragStart}>
     <span on:click={onClick(task.id)}>{toIcon(task)}</span>
     <span on:click="{() => clicked = !clicked}">{task.body}</span>
     {#if clicked}
