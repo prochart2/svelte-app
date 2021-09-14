@@ -3,6 +3,7 @@
     import { toIcon, makeTask } from './task';
     import TaskList from './TaskList.svelte';
     export let task;
+    export let idx;
 
     const dispatch = createEventDispatcher();
     const onClick = (id) => {
@@ -23,15 +24,22 @@
         task = task;
     }
 
-    const onDragStart = (event) => {
-        dispatch('dragstart', {
+    // Drag and Drop event
+    const onDragOrDrop = (event) => {
+        dispatch(event.type, {
             target: event.target,
             id: task.id,
+            idx,
         })
     }
 </script>
 
-<li draggable="true" on:dragstart={onDragStart}>
+<li
+    draggable="true"
+    on:dragstart={onDragOrDrop}
+    on:dragend={onDragOrDrop}
+    on:dragenter={onDragOrDrop}
+    on:dragleave={onDragOrDrop}>
     <span on:click={onClick(task.id)}>{toIcon(task)}</span>
     <span on:click="{() => clicked = !clicked}">{task.body}</span>
     {#if clicked}
