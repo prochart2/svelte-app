@@ -2,31 +2,33 @@
     import Task from './Task.svelte';
     export let tasks;
 
+    let lastLeftIdx = null;
+
     const onDragStart = (event) => {
         const idx = event.detail.idx;
         console.log("Drag started: " + idx);
-        console.dir(event);
-        event.detail.target.style.background = "red";
     }
 
     const onDragEnd = (event) => {
         const idx = event.detail.idx;
         console.log("Drag end: " + idx);
-        console.dir(event);
         event.detail.target.style.background = "";
+        if (lastLeftIdx != null && idx != lastLeftIdx) {
+            console.log(`Swap ${idx} <-> ${lastLeftIdx}`);
+            [tasks[idx], tasks[lastLeftIdx]] = [tasks[lastLeftIdx], tasks[idx]]
+        }
     }
 
     const onDragEnter = (event) => {
-        const idx = event.detail.idx;
-        console.log("Drag enter: " + idx);
-        console.dir(event);
-        event.detail.target.style.background = "green";
+        console.log("Drag Enter" + event.detail.idx);
+        // event.detail.target.style.borderBottom = "solid";
+        event.detail.target.style.background = "gray";
     }
 
     const onDragLeave = (event) => {
-        const idx = event.detail.idx;
-        console.log("Drag leave: " + idx);
-        console.dir(event);
+        console.log("Drag Leave" + event.detail.idx);
+        lastLeftIdx = event.detail.idx;
+        // event.detail.target.style.borderBottom = "hidden";
         event.detail.target.style.background = "";
     }
 
@@ -34,7 +36,6 @@
         const idx = event.detail.idx;
         event.preventDefault()
         console.log("Drop: " + idx);
-        console.dir(event);
         event.detail.target.style.background = "yellow";
     }
 </script>
