@@ -187,3 +187,7 @@ tags
 [._]*.un~
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,vim,node,linux
+
+
+# Firebase config
+*/firebaseConfig.js
