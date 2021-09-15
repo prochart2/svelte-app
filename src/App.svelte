@@ -1,7 +1,11 @@
 <script>
 	import Report from './Report.svelte';
+	import { initializeApp } from 'firebase/app';
+	import { firebaseConfig } from './firebaseConfig';
 
 	export let name;
+
+	const app = initializeApp(firebaseConfig);
 </script>
 
 <main>
