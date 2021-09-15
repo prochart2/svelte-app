@@ -1,11 +1,15 @@
 <script>
-	import Report from './Report.svelte';
-	import { initializeApp } from 'firebase/app';
+    import { FirebaseApp, User, Doc, Collection } from "sveltefire";
+	import * as firebase from "firebase/app";
+
+
 	import { firebaseConfig } from './firebaseConfig';
+	import Report from './Report.svelte';
+	import "firebase/firestore";
 
 	export let name;
 
-	const app = initializeApp(firebaseConfig);
+	firebase.initializeApp(firebaseConfig);
 </script>
 
 <main>
@@ -13,6 +17,8 @@
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 
 	<Report />
+	<FirebaseApp {firebase}>
+	</FirebaseApp>
 </main>
 
 <style>
