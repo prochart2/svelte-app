@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 import { makeTask, toIcon, toNextStatus } from './task';
+import { db } from './firebase';
+import { doc, setDoc } from "firebase/firestore";
 
 const createTaskList = () => {
     const { subscribe, update } = writable([]);
@@ -7,7 +9,10 @@ const createTaskList = () => {
     return {
         subscribe,
         addTask: body => update(tasks => {
-            tasks.push(makeTask(body));
+            const newTask = makeTask(body);
+            tasks.push(newTask);
+            // collection(db, 'tasks').add(newTask);
+            setDoc(doc(db, 'task', "ahi"), newTask);
             return tasks;
         }),
         toggleStatus: id => update(tasks => {
