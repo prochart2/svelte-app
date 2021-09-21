@@ -1,5 +1,5 @@
 <script>
-    import { each, onDestroy } from "svelte/internal";
+    import { onDestroy } from "svelte/internal";
     import TaskList from './TaskList.svelte';
     import { taskList } from './taskList';
 
