@@ -2,17 +2,12 @@
     import { onDestroy } from "svelte/internal";
     import TaskList from './TaskList.svelte';
     import { createTaskList } from './taskList';
+    import { fmt } from "./utils";
 
     export let uid;
 
     // Date
     const now = new Date();
-    const fmt = new Intl.DateTimeFormat('ja', {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-    });
-
     let date_str = fmt.format(now);
 
     // Aim
