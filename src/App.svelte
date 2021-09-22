@@ -1,17 +1,50 @@
 <script>
     import { FirebaseApp, User, Doc, Collection } from "sveltefire";
-	import { db } from "./firebase";
-
+	import { auth } from "./firebase";
+	import { signInAnonymously, onAuthStateChanged, signOut } from "firebase/auth";
 
 
 	import Report from './Report.svelte';
 
 	export let name;
+	let uid = null;
+
+	const onSignInSubmit = () => {
+		signInAnonymously(auth)
+			.then(() => {
+				console.log("sign in success");
+			})
+			.catch((err) => {
+				console.log("sign in fail")
+			});
+	}
+
+	const onSignOutSubmit = () => {
+		signOut(auth)
+			.then(() => {
+				console.log("sign out success");
+			})
+			.catch((err) => {
+				console.log("sign out fail")
+			});
+	}
+
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			uid = user.uid;
+		} else {
+			uid = null;
+		}
+	});
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+
+	<p>Your User ID is {uid}</p>
+	<input type="submit" on:click={onSignInSubmit} value="SigiIn">
+	<input type="submit" on:click={onSignOutSubmit} value="SignOut">
 
 	<Report />
 	<!-- <FirebaseApp {firebase}> -->
