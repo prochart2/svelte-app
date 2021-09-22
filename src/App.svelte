@@ -46,7 +46,9 @@
 	<input type="submit" on:click={onSignInSubmit} value="SigiIn">
 	<input type="submit" on:click={onSignOutSubmit} value="SignOut">
 
-	<Report />
+	{#if uid}
+		<Report uid={uid} />
+	{/if}
 	<!-- <FirebaseApp {firebase}> -->
 	<!-- </FirebaseApp> -->
 </main>
