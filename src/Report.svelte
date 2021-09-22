@@ -25,7 +25,7 @@
     // Tasks
     let newTask = "";
     let tasks;
-    let taskList = createTaskList();
+    let taskList = createTaskList(uid, now);
     const unsubscribe = taskList.subscribe(val => {
         tasks = val;
     });
