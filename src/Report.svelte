@@ -1,7 +1,9 @@
 <script>
     import { onDestroy } from "svelte/internal";
     import TaskList from './TaskList.svelte';
-    import { taskList } from './taskList';
+    import { createTaskList } from './taskList';
+
+    export let uid;
 
     // Date
     const now = new Date();
@@ -28,6 +30,7 @@
     // Tasks
     let newTask = "";
     let tasks;
+    let taskList = createTaskList();
     const unsubscribe = taskList.subscribe(val => {
         tasks = val;
     });

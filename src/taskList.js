@@ -30,4 +30,6 @@ const createTaskList = () => {
     };
 }
 
-export const taskList = createTaskList();
+export {
+    createTaskList
+};
