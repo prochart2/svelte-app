@@ -1,17 +1,20 @@
 import { writable } from 'svelte/store';
 import { makeTask, toIcon, toNextStatus } from './task';
 import { db } from './firebase';
-import { doc, setDoc, updateDoc} from "firebase/firestore";
+import { doc, setDoc, updateDoc, getDoc} from "firebase/firestore";
 import { fmt } from "./utils";
+import { initializeApp } from '@firebase/app';
 
 const createTaskList = (uid, date) => {
-    const { subscribe, update } = writable([]);
     let userRef = doc(db, 'users', uid);
     let dialyRef = doc(userRef, 'dialy', fmt.format(date).replaceAll('/', '-'));
-    setDoc(dialyRef, {});
+    const { subscribe, update } = writable([]);
 
     return {
         subscribe,
+        update: tasks => update(_ => {
+            return tasks;
+        }),
         addTask: body => update(tasks => {
             const newTask = makeTask(body);
             tasks.push(newTask);

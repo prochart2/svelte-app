@@ -3,6 +3,8 @@
     import TaskList from './TaskList.svelte';
     import { createTaskList } from './taskList';
     import { fmt } from "./utils";
+    import { doc, setDoc, getDoc} from "firebase/firestore";
+    import { db } from './firebase';
 
     export let uid;
 
@@ -50,6 +52,19 @@
         ];
         taskList.swap(idx1, idx2);
     }
+
+    // Fetch exist data from firestore
+    let userRef = doc(db, 'users', uid);
+    let dialyRef = doc(userRef, 'dialy', fmt.format(now).replaceAll('/', '-'));
+    getDoc(dialyRef)
+    .then(doc => {
+        console.log("fetched.")
+        if (doc.exists()) {
+            taskList.update(doc.data()['tasks']);
+        } else {
+            setDoc(dialyRef, {});
+        }
+    });
 
     // Learned
     let learned = "";
