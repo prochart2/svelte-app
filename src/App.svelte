@@ -1,7 +1,7 @@
 <script>
     import { FirebaseApp, User, Doc, Collection } from "sveltefire";
 	import { auth } from "./firebase";
-	import { signInAnonymously, onAuthStateChanged, signOut } from "firebase/auth";
+	import { signInWithPopup, GithubAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 
 
 	import Report from './Report.svelte';
@@ -9,13 +9,16 @@
 	export let name;
 	let uid = null;
 
+	const authProvider = new GithubAuthProvider();
 	const onSignInSubmit = () => {
-		signInAnonymously(auth)
-			.then(() => {
+		signInWithPopup(auth, authProvider)
+			.then(result => {
+				console.dir(result);
+				uid = result.user.uid;
 				console.log("sign in success");
 			})
 			.catch((err) => {
-				console.log("sign in fail")
+				console.error(err.message);
 			});
 	}
 
