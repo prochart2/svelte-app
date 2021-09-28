@@ -60,9 +60,11 @@
     .then(doc => {
         console.log("fetched.")
         if (doc.exists()) {
-            taskList.update(doc.data()['tasks']);
+            const tasks = doc.data()['tasks']
+            taskList.update(tasks || []);
         } else {
             setDoc(dialyRef, {});
+            taskList.update([]);
         }
     });
 
