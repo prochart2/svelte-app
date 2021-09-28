@@ -26,11 +26,13 @@ const createTaskList = (uid, date) => {
             let targetTask = tasks.splice(targetIndex, 1)[0];
             targetTask = toNextStatus(targetTask);
             tasks.splice(targetIndex, 0, targetTask);
+            updateDoc(dialyRef, {tasks});
             return tasks;
         }),
         swap: (idx1, idx2) => update(tasks => {
             [tasks[idx1], tasks[idx2]] = [tasks[idx2], tasks[idx1]];
             console.log(`Swap ${idx1} <-> ${idx2}`);
+            updateDoc(dialyRef, {tasks});
             return tasks;
         }),
     };
