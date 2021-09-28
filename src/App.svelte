@@ -1,5 +1,4 @@
 <script>
-    import { FirebaseApp, User, Doc, Collection } from "sveltefire";
 	import { auth } from "./firebase";
 	import { signInWithPopup, GithubAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 
