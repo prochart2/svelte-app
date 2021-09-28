@@ -1,16 +1,15 @@
 <script>
-    import { each, onDestroy } from "svelte/internal";
+    import { onDestroy } from "svelte/internal";
     import TaskList from './TaskList.svelte';
-    import { taskList } from './taskList';
+    import { createTaskList } from './taskList';
+    import { fmt } from "./utils";
+    import { doc, setDoc, getDoc} from "firebase/firestore";
+    import { db } from './firebase';
+
+    export let uid;
 
     // Date
     const now = new Date();
-    const fmt = new Intl.DateTimeFormat('ja', {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-    });
-
     let date_str = fmt.format(now);
 
     // Aim
@@ -28,6 +27,7 @@
     // Tasks
     let newTask = "";
     let tasks;
+    let taskList = createTaskList(uid, now);
     const unsubscribe = taskList.subscribe(val => {
         tasks = val;
     });
@@ -52,6 +52,21 @@
         ];
         taskList.swap(idx1, idx2);
     }
+
+    // Fetch exist data from firestore
+    let userRef = doc(db, 'users', uid);
+    let dialyRef = doc(userRef, 'dialy', fmt.format(now).replaceAll('/', '-'));
+    getDoc(dialyRef)
+    .then(doc => {
+        console.log("fetched.")
+        if (doc.exists()) {
+            const tasks = doc.data()['tasks']
+            taskList.update(tasks || []);
+        } else {
+            setDoc(dialyRef, {});
+            taskList.update([]);
+        }
+    });
 
     // Learned
     let learned = "";
