@@ -1,8 +1,8 @@
 <script>
 	import { auth } from "./firebase";
 	import { signInWithPopup, GithubAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
-
-
+	import { Router, Route } from "svelte-routing";
+	import DialyList from "./DialyList.svelte";
 	import Report from './Report.svelte';
 
 	export let name;
@@ -40,20 +40,25 @@
 	});
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+<Router>
+	<main>
+		<h1>Hello {name}!</h1>
+		<p>Your User ID is {uid}</p>
+		<input type="submit" on:click={onSignInSubmit} value="SigiIn">
+		<input type="submit" on:click={onSignOutSubmit} value="SignOut">
 
-	<p>Your User ID is {uid}</p>
-	<input type="submit" on:click={onSignInSubmit} value="SigiIn">
-	<input type="submit" on:click={onSignOutSubmit} value="SignOut">
-
-	{#if uid}
-		<Report uid={uid} />
-	{/if}
-	<!-- <FirebaseApp {firebase}> -->
-	<!-- </FirebaseApp> -->
-</main>
+		{#if uid}
+		<Route path="">
+			<DialyList uid={uid} />
+		</Route>
+		<Route path="dialy">
+			<Report uid={uid} />
+		</Route>
+		{/if}
+		<!-- <FirebaseApp {firebase}> -->
+			<!-- </FirebaseApp> -->
+	</main>
+</Router>
 
 <style>
 	main {
