@@ -7,6 +7,7 @@
 
 	export let name;
 	let uid = null;
+    const today = new Date();
 
 	const authProvider = new GithubAuthProvider();
 	const onSignInSubmit = () => {
@@ -51,8 +52,8 @@
 		<Route path="">
 			<DialyList uid={uid} />
 		</Route>
-		<Route path="dialy">
-			<Report uid={uid} />
+		<Route path="dialy/:date" let:params>
+			<Report uid={uid} date_str={params.date} />
 		</Route>
 		{/if}
 		<!-- <FirebaseApp {firebase}> -->
