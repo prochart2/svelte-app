@@ -1,5 +1,5 @@
 <script>
-	import { Link } from "svelte-routing";
+    import { Link } from "svelte-routing";
     import { db } from './firebase';
     import { doc, getDocs, collection} from "firebase/firestore";
 
