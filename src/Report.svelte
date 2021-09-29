@@ -5,6 +5,7 @@
     import { fmt } from "./utils";
     import { doc, setDoc, getDoc} from "firebase/firestore";
     import { db } from './firebase';
+    import { Link } from "svelte-routing";
 
     export let uid;
     export let date_str;
@@ -80,6 +81,7 @@
     {date_text}
 </h2>
 
+<Link to="">戻る</Link><br>
 <div>
     <h2>目標</h2>
     <input type="text"
