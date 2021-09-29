@@ -5,12 +5,14 @@
     import { fmt } from "./utils";
     import { doc, setDoc, getDoc} from "firebase/firestore";
     import { db } from './firebase';
+    import { Link } from "svelte-routing";
 
     export let uid;
+    export let date_str;
 
     // Date
-    const now = new Date();
-    let date_str = fmt.format(now);
+    const date = date_str === "new" ? new Date() : new Date(date_str);
+    let date_text = fmt.format(date);
 
     // Aim
     let aims = [];
@@ -27,7 +29,7 @@
     // Tasks
     let newTask = "";
     let tasks;
-    let taskList = createTaskList(uid, now);
+    let taskList = createTaskList(uid, date);
     const unsubscribe = taskList.subscribe(val => {
         tasks = val;
     });
@@ -55,7 +57,7 @@
 
     // Fetch exist data from firestore
     let userRef = doc(db, 'users', uid);
-    let dialyRef = doc(userRef, 'dialy', fmt.format(now).replaceAll('/', '-'));
+    let dialyRef = doc(userRef, 'dialy', fmt.format(date).replaceAll('/', '-'));
     getDoc(dialyRef)
     .then(doc => {
         console.log("fetched.")
@@ -76,9 +78,10 @@
 </script>
 
 <h2>
-    {date_str}
+    {date_text}
 </h2>
 
+<Link to="">戻る</Link><br>
 <div>
     <h2>目標</h2>
     <input type="text"
